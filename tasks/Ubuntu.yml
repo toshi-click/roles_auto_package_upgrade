@@ -1,24 +1,15 @@
 ---
-- name: debconf-utils install
+- name: apt install auto package upgrades
   apt:
-    pkg: debconf-utils
-    state: present
+    name: "{{ packages }}"
     update_cache: yes
     cache_valid_time: 3600
-
-- name: unattended-upgrades install
-  apt:
-    pkg: unattended-upgrades
     state: present
-    update_cache: yes
-    cache_valid_time: 3600
-
-- name: apt-listchanges install
-  apt:
-    pkg: apt-listchanges
-    state: present
-    update_cache: yes
-    cache_valid_time: 3600
+  vars:
+    packages:
+      - debconf-utils
+      - unattended-upgrades
+      - apt-listchanges
 
 #  $ echo 'unattended-upgrades unattended-upgrades/enable_auto_updates boolean true' \
 #  | sudo debconf-set-selections
